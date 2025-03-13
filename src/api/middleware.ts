@@ -1,5 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import { config } from "../config.js";
+import { respondWithError } from "./json.js";
+import { badRequestError, notFoundError, unauthorizedError, userForbiddenError } from "./errors.js";
 
 /* 
 function tracks the incoming request and responses. if upon finishing the status code is no
@@ -22,4 +24,31 @@ export function middlewareMetricsInc(req: Request, res: Response, next: NextFunc
     next();
 }
 
+export function middlewareErrorHandler(err: Error,
+    _: Request,
+    res: Response,
+    __: NextFunction,
+  ) {
+    let statusCode = 500;
+    let message = "Something went wrong on our end";
+    if (err instanceof badRequestError) {
+        statusCode = 400;
+        message = err.message;
+    } else if (err instanceof unauthorizedError) {
+        statusCode = 401;
+        message = err.message;
+    } else if (err instanceof userForbiddenError) {
+        statusCode = 403;
+        message = err.message;
+    } else if (err instanceof notFoundError) {
+        statusCode = 404;
+        message = err.message;
+    } 
+
+    if (statusCode >= 500) {
+        console.log(err.message)
+    }
+ 
+    respondWithError(res, statusCode, message);
+  }
     
