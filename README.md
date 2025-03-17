@@ -1,6 +1,8 @@
-httpserver in Typescript
+A RESTful API in Typescript
 
-requirement:
+Project is currently being worked on
+
+Requirement:
 
 Node version:
 21.7.0
