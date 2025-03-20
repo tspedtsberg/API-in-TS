@@ -18,3 +18,17 @@ export async function getUserByEmail(email: string) {
   }
   return rows[0];
 }
+
+export async function updateUser(id: string, email: string, hashed_password: string) {
+  const [result] = await db.update(users).set({
+    email,
+    hashed_password
+  }).where(eq(users.id, id)).returning();
+  return result;
+}
+
+export async function upgradeToChirpyRed(id: string) {
+  const [result] = await db.update(users).set({ isChirpyRed: true })
+  .where(eq(users.id, id)).returning();
+  return result;
+}
