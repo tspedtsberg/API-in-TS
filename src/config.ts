@@ -4,6 +4,7 @@ import type { MigrationConfig } from "drizzle-orm/migrator";
 type Config = {
   api: APIConfig;
   db: DBConfig;
+  jwt: JWTConfig;
 }
 
 //Type to store information about how many times the site as been visited
@@ -17,6 +18,13 @@ type DBConfig = {
   url: string;
   migrationConfig: MigrationConfig;
 }
+
+type JWTConfig = {
+  defaultDuration: number;
+  secret: string;
+  issuer: string;
+  refreshDuration: number;
+};
 
 process.loadEnvFile();
 
@@ -36,10 +44,16 @@ export const config: Config = {
   api: {
     fileServerHits: 0,
     port: Number(envOrThrow("PORT")),
-    platform: envOrThrow("PLATFORM"),
+    platform: envOrThrow("PLATFORM"),    
   },
   db: {
     url: envOrThrow("DB_URL"),
     migrationConfig: migrationConfig,
+  },
+  jwt: {
+    defaultDuration: 60 * 60, // 1hour
+    secret: envOrThrow("SECRET"),
+    issuer: "chirpy",
+    refreshDuration: 60 * 60 * 24 * 30 // 30 days in seconds
   },
 };

@@ -15,6 +15,20 @@
       "when": 1742200098990,
       "tag": "0001_gigantic_fixer",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1742285839772,
+      "tag": "0002_lying_anthem",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1742382675087,
+      "tag": "0003_whole_darkstar",
+      "breakpoints": true
     }
   ]
 }
