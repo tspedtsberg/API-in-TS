@@ -1,4 +1,5 @@
-# A RESTful API in Typescript
+# An API in Typescript
+A learning project - An API used as a backend for a Social Network like Twitter. 
 
 ## Motivation
 Motivated to improve my knowledge and skills as a backend developer I feel that a deeper understanding of API and http servers was needed. Hence I've built this.
