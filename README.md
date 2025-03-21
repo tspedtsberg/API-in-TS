@@ -35,4 +35,4 @@ Your connecting string:
 "protocol://username:password@host:port/database?sslmode=disable
 
 
-run: <npm run migrate> in cmd line to create tables in your DB
+run: npm run migrate in cmd line to create tables in your DB
