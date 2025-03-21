@@ -3,7 +3,7 @@ import type { Request, Response } from "express";
 import { createUser, upgradeToChirpyRed } from "../db/queries/users.js";
 import { badRequestError, UserNotAuthenticatedError } from "./errors.js";
 import { respondWithJSON } from "./json.js";
-import { hashPassword, comparePassword, makeRefreshToken, getBearerToken, validateJWT } from "../auth.js";
+import { hashPassword, comparePassword, makeRefreshToken, getBearerToken, validateJWT, getAPIKey } from "../auth.js";
 import { getUserByEmail, updateUser } from "../db/queries/users.js";
 import { config } from "../config.js";
 import { NewUser } from "src/db/schema/schema.js";
@@ -173,8 +173,12 @@ export async function handlerMakeUserChirpyRed(req: Request, res: Response) {
             userId: string;
         }
     }
-
     const params: parameter = req.body;
+    let api = getAPIKey(req);
+    if (api !== config.polka.polkaKey) {
+        throw new UserNotAuthenticatedError("Invalid API key");
+    }
+
     if (params.event !== "user.upgraded") {
         res.status(204).send();
         return;

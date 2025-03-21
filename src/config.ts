@@ -5,6 +5,7 @@ type Config = {
   api: APIConfig;
   db: DBConfig;
   jwt: JWTConfig;
+  polka: PolkaConfig;
 }
 
 //Type to store information about how many times the site as been visited
@@ -25,6 +26,10 @@ type JWTConfig = {
   issuer: string;
   refreshDuration: number;
 };
+
+type PolkaConfig = {
+  polkaKey: string;
+}
 
 process.loadEnvFile();
 
@@ -55,5 +60,8 @@ export const config: Config = {
     secret: envOrThrow("SECRET"),
     issuer: "chirpy",
     refreshDuration: 60 * 60 * 24 * 30 // 30 days in seconds
+  },
+  polka: {
+    polkaKey: envOrThrow("POLKA_KEY"),
   },
 };

@@ -68,3 +68,19 @@ export function extractBearerToken(authHeader: string) {
 export function makeRefreshToken() {
     return crypto.randomBytes(64).toString('hex');
 }
+
+export function getAPIKey(req: Request) {
+    const apiKey = req.get("Authorization");
+    if (!apiKey) {
+        throw new UserNotAuthenticatedError("Malforemed Authorization header");
+    }
+    return extractAPIKey(apiKey);
+}
+
+export function extractAPIKey(authHeader: string) {
+    const parts = authHeader.split(" ");
+    if (parts.length !== 2 || parts[0] !== "ApiKey") {
+        throw new badRequestError("Invalid Authorization header");
+    }
+    return parts[1];
+}

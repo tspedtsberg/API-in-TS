@@ -1,27 +1,34 @@
-A RESTful API in Typescript
+# A RESTful API in Typescript
+Project is finished.
 
-Project is currently being worked on
+## Goals
+
+The goal of this project was to get familiar with API's and HTTP servers. Aswell as librarys as JWT, express, drizzle, vitest. 
 
 Requirement:
 
 Node version:
 21.7.0
 
-Setup:
+## Setup:
 
 Setting up the DB
 
-setup postgressql
+Setup postgressql
 
-connecting drizzle and postgressql
+Connecting drizzle and postgressql
 
 you need to create a .env file
 with:
 
 DB_URL="your_connect_string"
+PORT = "port"
+PLATFORM = "dev"
+SECRET = "your-secret-for-JWT"
+POLKA_KEY = "apiKey"
 
 Your connecting string:
 "protocol://username:password@host:port/database?sslmode=disable
 
 
-run npx drizzle-kit generate i cmd line to create tables
+run: <npm run migrate> in cmd line to create tables in your DB

@@ -48,7 +48,29 @@ function getCleanedBody(body: string) {
 //"/api/chirps"
 export async function handlergetAllChirps(req: Request, res: Response) {
     const chirps = await getChirps();
-    respondWithJSON(res, 200, chirps)
+    //optional parameter 
+    //"/api/chirps?authorId=xxxx"
+    let authorId = "";
+    let autherIdQuery = req.query.authorId;
+    if (typeof autherIdQuery === "string") {
+        authorId = autherIdQuery;
+    }
+    const filteredChirps = chirps.filter((chirp) => chirp.userId === authorId || authorId === "");
+    
+    //optional parameter sort
+    //"/api/chirps?sort=desc"
+    let sort = "";
+    let sortQuery = req.query.sort;
+    if (typeof sortQuery === "string") {
+        sort = sortQuery;
+    }
+    if (sort === "desc") {
+        filteredChirps.sort((a, b) => {
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
+    }
+
+    respondWithJSON(res, 200, filteredChirps)
 }
 
 export async function handlergetChirp(req: Request, res: Response) {
